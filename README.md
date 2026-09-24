@@ -65,9 +65,10 @@ Open <http://127.0.0.1:8000>. Keep the terminal open and press `Ctrl+C` there to
 stop the server.
 
 The first run builds `.cache/viewer.sqlite3`. This one-time indexing step can take
-several minutes because it processes every training record. Later runs reuse the
-index and start immediately. The index rebuilds automatically if any input file
-changes.
+several minutes because it processes every training record. On later interactive
+runs, `run.sh` asks whether to rebuild; answer **No** (or press Enter) to reuse the
+current index. If the input files changed, the index rebuilds automatically to
+avoid showing stale data.
 
 To build the index without starting the server:
 
@@ -121,6 +122,7 @@ the query to find a particular entity; the underlying index contains every row.
   `python3 server.py --data-dir /path/to/train`.
 - **Port 8000 is busy:** pass another port as the second argument.
 - **Force an index rebuild:** stop the server and delete `.cache/viewer.sqlite3`.
+- **Skip the rebuild prompt:** press Enter or answer `n` to reuse a current index.
 - **Remote machine:** use SSH port forwarding. Bind to `0.0.0.0` only on a trusted
   network with appropriate firewall controls.
 

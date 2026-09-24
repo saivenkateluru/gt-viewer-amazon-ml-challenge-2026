@@ -164,13 +164,14 @@ def build_database(database: Path, files: dict[str, Path], signature: str) -> No
     print(f"Index ready: {database}", flush=True)
 
 
-def ensure_database(database: Path, files: dict[str, Path]) -> None:
+def ensure_database(database: Path, files: dict[str, Path], rebuild: bool = False) -> None:
     signature = data_signature(files)
-    if database.is_file():
+    if database.is_file() and not rebuild:
         try:
             with sqlite3.connect(database) as connection:
                 stored = connection.execute("SELECT value FROM metadata WHERE key='signature'").fetchone()
             if stored and stored[0] == signature:
+                print(f"Reusing existing index: {database}", flush=True)
                 return
         except sqlite3.Error:
             pass
@@ -325,13 +326,14 @@ def main() -> None:
     parser.add_argument("--data-dir", type=Path, default=ROOT / "data")
     parser.add_argument("--database", type=Path, default=ROOT / ".cache" / "viewer.sqlite3")
     parser.add_argument("--build-only", action="store_true", help="build the index, then exit")
+    parser.add_argument("--rebuild", action="store_true", help="rebuild the index even when it is current")
     parser.add_argument("--host", default="127.0.0.1")
     parser.add_argument("--port", type=int, default=8000)
     args = parser.parse_args()
 
     data_dir = args.data_dir.expanduser().resolve()
     files = resolve_files(data_dir)
-    ensure_database(args.database, files)
+    ensure_database(args.database, files, args.rebuild)
     if args.build_only:
         return
     ViewerHandler.database = args.database
