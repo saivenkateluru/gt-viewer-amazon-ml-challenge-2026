@@ -92,7 +92,7 @@ python server.py --data-dir "C:\path\to\student_resource\dataset\train"
 ## Using the viewer
 
 1. Search for a Source 1 entity ID, business name, or address.
-2. Filter by country or relationship count.
+2. Filter by country or relationship count, and order results by match count.
 3. Select a Source 1 result to display its complete ground-truth graph.
 4. Select an orange Source 2 or green Source 3 node to compare raw fields with
    the blue Source 1 reference record.

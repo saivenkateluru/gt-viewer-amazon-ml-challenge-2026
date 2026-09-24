@@ -8,6 +8,7 @@ const elements = {
   search: document.querySelector("#search-input"),
   country: document.querySelector("#country-filter"),
   match: document.querySelector("#match-filter"),
+  sort: document.querySelector("#sort-filter"),
   count: document.querySelector("#result-count"),
   list: document.querySelector("#result-list"),
   badges: document.querySelector("#entity-badges"),
@@ -54,6 +55,7 @@ async function applyFilters() {
     q: elements.search.value.trim(),
     country: elements.country.value,
     match: elements.match.value,
+    sort: elements.sort.value,
     limit: "40",
   });
   elements.count.textContent = "Searching…";
@@ -224,10 +226,12 @@ function bindEvents() {
   });
   elements.country.addEventListener("change", applyFilters);
   elements.match.addEventListener("change", applyFilters);
+  elements.sort.addEventListener("change", applyFilters);
   document.querySelector("#clear-button").addEventListener("click", () => {
     elements.search.value = "";
     elements.country.value = "all";
     elements.match.value = "all";
+    elements.sort.value = "default";
     applyFilters();
   });
   document.querySelector("#random-button").addEventListener("click", () => {

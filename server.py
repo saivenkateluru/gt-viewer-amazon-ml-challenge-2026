@@ -220,6 +220,7 @@ class ViewerHandler(http.server.SimpleHTTPRequestHandler):
         search = query.get("q", [""])[0].strip()
         country = query.get("country", ["all"])[0]
         match_filter = query.get("match", ["all"])[0]
+        sort = query.get("sort", ["default"])[0]
         limit = min(max(int(query.get("limit", ["40"])[0]), 1), 100)
 
         conditions: list[str] = []
@@ -232,10 +233,14 @@ class ViewerHandler(http.server.SimpleHTTPRequestHandler):
             )
             conditions.append("s1_search MATCH ?")
             parameters.append(match_expression)
-            ordering = "ORDER BY bm25(s1_search)"
+            default_ordering = "ORDER BY bm25(s1_search)"
         else:
             source = "FROM ground_truth g CROSS JOIN records r ON r.entity_id=g.source1_entity_id"
-            ordering = "ORDER BY g.rowid"
+            default_ordering = "ORDER BY g.rowid"
+        ordering = {
+            "matches_desc": "ORDER BY g.match_count DESC",
+            "matches_asc": "ORDER BY g.match_count ASC",
+        }.get(sort, default_ordering)
         if country != "all":
             conditions.append("r.country=?")
             parameters.append(country)
