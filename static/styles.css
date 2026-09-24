@@ -90,8 +90,9 @@ main { max-width: 1540px; margin: 0 auto; padding: 26px 30px 42px; }
 }
 .search-box:focus-within { border-color: var(--s1); box-shadow: 0 0 0 3px var(--s1-soft); }
 .search-box input { border: 0; outline: 0; width: 100%; color: var(--ink); background: transparent; }
-.filters { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; padding: 0 20px 14px; }
+.filters { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; padding: 0 20px 14px; }
 .filters label { color: var(--muted); font-size: 11px; font-weight: 650; }
+.filters label:last-child { grid-column: 1 / -1; }
 .filters select { width: 100%; margin-top: 4px; padding: 8px; border: 1px solid var(--line); border-radius: 8px; color: var(--ink); background: white; }
 .result-meta { padding: 9px 20px; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); color: var(--muted); font-size: 11px; }
 .result-meta button { padding: 0; border: 0; background: transparent; color: var(--s1); }
