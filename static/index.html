@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Explore the complete Amazon ML Challenge 2026 entity-resolution training ground truth.">
+  <title>GT Viewer — Amazon ML Challenge 2026</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <div class="brand-mark" aria-hidden="true">GT</div>
+      <div>
+        <p class="eyebrow">Amazon ML Challenge 2026</p>
+        <h1>GT Viewer</h1>
+      </div>
+    </div>
+    <div class="legend" aria-label="Graph legend">
+      <span><i class="dot s1"></i>Source 1</span>
+      <span><i class="dot s2"></i>Source 2</span>
+      <span><i class="dot s3"></i>Source 3</span>
+      <span><i class="edge-key"></i>Ground truth</span>
+    </div>
+  </header>
+
+  <main>
+    <section class="summary" aria-labelledby="dataset-title">
+      <div>
+        <p class="eyebrow">Complete training data</p>
+        <h2 id="dataset-title">A full view of noisy business identities</h2>
+        <p id="dataset-description" class="muted">Loading local index…</p>
+      </div>
+      <div class="metrics" id="metrics" aria-label="Sample statistics"></div>
+    </section>
+
+    <section class="workspace">
+      <aside class="browser-panel">
+        <div class="panel-heading">
+          <div>
+            <p class="eyebrow">Explore</p>
+            <h2>Source 1 entities</h2>
+          </div>
+          <button id="random-button" class="icon-button" type="button" title="Select a random entity" aria-label="Select a random entity">↝</button>
+        </div>
+
+        <label class="search-box">
+          <span class="sr-only">Search records</span>
+          <span aria-hidden="true">⌕</span>
+          <input id="search-input" type="search" placeholder="ID, business, or address" autocomplete="off">
+        </label>
+
+        <div class="filters">
+          <label>Country
+            <select id="country-filter"><option value="all">All countries</option></select>
+          </label>
+          <label>Relationships
+            <select id="match-filter">
+              <option value="all">All entities</option>
+              <option value="matched">Has matches</option>
+              <option value="singleton">Singletons</option>
+              <option value="1-2">1–2 matches</option>
+              <option value="3-5">3–5 matches</option>
+              <option value="6+">6+ matches</option>
+            </select>
+          </label>
+        </div>
+
+        <div class="result-meta"><span id="result-count">0 entities</span><button id="clear-button" type="button">Clear filters</button></div>
+        <div id="result-list" class="result-list" role="listbox" aria-label="Source 1 entities"></div>
+      </aside>
+
+      <section class="content-panel">
+        <div class="entity-heading">
+          <div>
+            <div id="entity-badges" class="badges"></div>
+            <h2 id="entity-name">Select an entity</h2>
+            <p id="entity-address" class="muted"></p>
+          </div>
+          <div class="nav-buttons">
+            <button id="previous-button" type="button" aria-label="Previous entity">←</button>
+            <button id="next-button" type="button" aria-label="Next entity">→</button>
+          </div>
+        </div>
+
+        <div class="graph-card">
+          <div class="card-heading">
+            <div><p class="eyebrow">Relationship map</p><h3>Verified matches</h3></div>
+            <p class="hint">Click a match to inspect it</p>
+          </div>
+          <div id="graph" class="graph" aria-live="polite"></div>
+        </div>
+
+        <div class="detail-card">
+          <div class="card-heading">
+            <div><p class="eyebrow">Record comparison</p><h3>Raw source fields</h3></div>
+          </div>
+          <div id="comparison" class="comparison"></div>
+        </div>
+      </section>
+    </section>
+  </main>
+
+  <footer>
+    <span>Local viewer · no external lookups</span>
+    <span>All records stay on this machine.</span>
+  </footer>
+
+  <script src="app.js" defer></script>
+</body>
+</html>
